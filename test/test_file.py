@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -22,7 +24,8 @@ class TestFile:
 
     @pytest.mark.freeze_uuids
     def test_upload_file(self):
-        with open("data/отчет.txt", "rb") as f:
+        this = Path(__file__).parent.resolve()
+        with open(this.joinpath("data").joinpath("отчет.txt"), "rb") as f:
             response = self.client.post("/files", files={"file": f})
             assert response.status_code == 201
             assert response.json() == {"file_id": "00000000-0000-0000-0000-000000000000", "filename": "отчет.txt"}
