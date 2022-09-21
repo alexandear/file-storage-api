@@ -1,20 +1,20 @@
-import uuid
+from fastapi import FastAPI
 
-from fastapi import FastAPI, File, UploadFile, status
-
-app = FastAPI()
+from app.router import file
 
 
-@app.post("/files", status_code=status.HTTP_201_CREATED)
-async def upload_file(file: UploadFile = File(...)):
-    return {"id": uuid.uuid4(), "filename": file.filename}
+def create_app() -> FastAPI:
+    app = FastAPI(
+        title="File API",
+        description="API example to upload, download file to server",
+        version="0.1.0",
+        contact={"name": "Oleksandr Redko", "email": "oleksandr.red+github@gmail.com"},
+    )
 
+    @app.get("/")
+    async def root():
+        return {"message": "It works"}
 
-@app.get("/files/{id}")
-async def download_file():
-    return {"message": "download_file"}
+    app.include_router(file.router, prefix="/files")
 
-
-@app.head("/files/{id}")
-async def info_file():
-    return None
+    return app
