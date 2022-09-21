@@ -14,7 +14,12 @@ Start an application:
 uvicorn --factory app.main:create_app --reload
 ```
 
-# Development
+## API
+
+![API](screenshot/doc.png)
+
+
+## Development
 
 Create and activate virtual environment with [.python-version](.python-version):
 
