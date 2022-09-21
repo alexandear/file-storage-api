@@ -23,6 +23,7 @@ class TestApp:
         assert info["title"]
         assert info["description"]
         assert info["contact"]
+        assert info["version"]
 
     def test_redoc(self):
         response = self.client.get("/redoc")

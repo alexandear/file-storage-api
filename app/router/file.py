@@ -8,7 +8,7 @@ router = APIRouter()
 
 @router.post("", status_code=status.HTTP_201_CREATED)
 async def post_upload(file: UploadFile = File(...)):
-    return {"id": uuid.uuid4(), "filename": file.filename}
+    return {"file_id": uuid.uuid4(), "filename": file.filename}
 
 
 @router.get("/{file_id}")

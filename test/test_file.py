@@ -25,4 +25,4 @@ class TestFile:
         with open("data/отчет.txt", "rb") as f:
             response = self.client.post("/files", files={"file": f})
             assert response.status_code == 201
-            assert response.json() == {"id": "00000000-0000-0000-0000-000000000000", "filename": "отчет.txt"}
+            assert response.json() == {"file_id": "00000000-0000-0000-0000-000000000000", "filename": "отчет.txt"}
