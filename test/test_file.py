@@ -42,9 +42,9 @@ class TestFile:
 
         response = self.client.get(f"/files/{file_id}")
         assert response.status_code == 200
-        assert response.headers.get("Content-Length") == "123"
+        assert response.headers.get("Content-Length") == "12"
         assert response.headers.get("Content-Type") == "application/json"
-        assert response.json() == {"message": "downloaded отчет.txt"}
+        assert response.json() == {"name": "отчет.txt"}
 
     def test_info_file(self, test_db):
         this = Path(__file__).parent.resolve()
@@ -57,7 +57,7 @@ class TestFile:
         response = self.client.head(f"/files/{file_id}")
         assert response.status_code == 200
         assert response.content == b""
-        assert response.headers.get("Content-Length") == "123"
+        assert response.headers.get("Content-Length") == "12"
 
     @pytest.mark.freeze_uuids
     def test_upload_file(self, test_db):
@@ -66,8 +66,8 @@ class TestFile:
             response = self.client.post("/files", files={"file": f})
             assert response.status_code == 201
             assert response.json() == {
-                "size": 1,
+                "size": 12,
                 "id": "00000000-0000-0000-0000-000000000000",
                 "name": "отчет.txt",
-                "content": "",
+                "content": "Lorem ipsum\n",
             }
