@@ -1,11 +1,13 @@
-from fastapi import FastAPI
+import uuid
+
+from fastapi import FastAPI, File, UploadFile, status
 
 app = FastAPI()
 
 
-@app.post("/files")
-async def upload_file():
-    return {"message": "upload_file"}
+@app.post("/files", status_code=status.HTTP_201_CREATED)
+async def upload_file(file: UploadFile = File(...)):
+    return {"id": uuid.uuid4(), "filename": file.filename}
 
 
 @app.get("/files/{id}")
