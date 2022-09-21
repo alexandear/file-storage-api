@@ -32,7 +32,7 @@ async def post_upload(file: UploadFile = File(...), db: Session = Depends(get_db
 async def info(file_id: str, db: Session = Depends(get_db)):
     file = crud.get_file_info(db, file_id)
     if not file:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="file not found")
     return JSONResponse(content={}, headers={"Content-Length": str(file.size)})
 
 
